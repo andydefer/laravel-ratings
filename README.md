@@ -65,7 +65,7 @@ composer require andydefer/laravel-ratings
 ### Publier les migrations
 
 ```bash
-php artisan vendor:publish --tag=Ratings-migrations
+php artisan vendor:publish --tag=ratings-migrations
 ```
 
 ### Exécuter les migrations

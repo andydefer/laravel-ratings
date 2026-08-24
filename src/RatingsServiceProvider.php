@@ -24,6 +24,6 @@ final class RatingsServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/migrations' => database_path('migrations'),
-        ], 'Ratings-migrations');
+        ], 'ratings-migrations');
     }
 }
