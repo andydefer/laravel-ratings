@@ -308,17 +308,23 @@ Le package supporte les Value Objects suivants :
 ```php
 $rating = Rating::find(1);
 
-// Accès via les getters
-$createdAt = $rating->getCreatedAt();    // DateTimeVO|null
-$updatedAt = $rating->getUpdatedAt();    // DateTimeVO|null
-$deletedAt = $rating->getDeletedAt();    // DateTimeVO|null
-$metadata = $rating->getMetadata();      // StrictDataObject|null
-$level = $rating->getRatingLevel();      // RatingLevel
-$review = $rating->getReview();          // string|null
+// ✅ Accès via les accesseurs Eloquent (propriétés directement)
+$metadata = $rating->metadata;       // StrictDataObject|null
+$ratingLevel = $rating->rating_level; // RatingLevel (via cast)
+$review = $rating->review;           // string|null
 
-// Relations
+// ✅ Relations
 $rater = $rating->rater;          // Auteur (User, Admin, etc.)
 $rateable = $rating->rateable;    // Objet évalué (Product, Service, etc.)
+
+// ✅ Vérification des valeurs
+if ($rating->created_at) {
+    echo $rating->created_at->format('Y-m-d H:i:s');
+}
+
+if ($rating->metadata) {
+    $orderId = $rating->metadata->get('order_id');
+}
 ```
 
 ---
@@ -416,10 +422,10 @@ class ProductReviewController extends Controller
                 return [
                     'id' => $rating->id,
                     'user' => $rating->rater->name,
-                    'rating' => $rating->getRatingLevel()->value,
-                    'stars' => $rating->getRatingLevel()->getStars(),
-                    'review' => $rating->getReview(),
-                    'created_at' => $rating->getCreatedAt()?->format('Y-m-d H:i:s')
+                    'rating' => $rating->rating_level->value,
+                    'stars' => $rating->rating_level->getStars(),
+                    'review' => $rating->review,
+                    'created_at' => $rating->created_at?->format('Y-m-d H:i:s')
                 ];
             })
         ]);
@@ -604,3 +610,17 @@ Si vous trouvez ce package utile, n'hésitez pas à lui donner une ⭐ sur GitHu
 ---
 
 **Construit avec ❤️ pour la communauté Laravel**
+```
+
+---
+
+## 📋 Résumé des modifications
+
+| Avant (obsolète) | Après (correct) |
+|------------------|-----------------|
+| `$rating->getCreatedAt()` | `$rating->created_at` |
+| `$rating->getUpdatedAt()` | `$rating->updated_at` |
+| `$rating->getDeletedAt()` | `$rating->deleted_at` |
+| `$rating->getMetadata()` | `$rating->metadata` |
+| `$rating->getRatingLevel()` | `$rating->rating_level` |
+| `$rating->getReview()` | `$rating->review` |

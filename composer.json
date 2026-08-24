@@ -9,6 +9,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "AndyDefer\\LaravelRatings\\Database\\Factories\\": "database/factories/",
             "AndyDefer\\LaravelRatings\\Tests\\": "tests/"
         }
     },
@@ -21,7 +22,8 @@
     "require": {
         "php": "^8.2",
         "laravel/framework": "^12.0|^13.0|^14.0|^15.0",
-        "andydefer/laravel-repository": "^2.15.0"
+        "andydefer/laravel-repository": "^2.15.0",
+        "andydefer/php-vo": "^0.20.1"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.6",

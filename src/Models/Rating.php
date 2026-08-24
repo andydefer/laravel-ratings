@@ -6,7 +6,6 @@ namespace AndyDefer\LaravelRatings\Models;
 
 use AndyDefer\DomainStructures\Utils\StrictDataObject;
 use AndyDefer\LaravelRatings\Enums\RatingLevel;
-use AndyDefer\PhpVo\ValueObjects\DateTimeVO;
 use AndyDefer\Repository\Proxies\AttributeProxy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
@@ -23,10 +22,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $rateable_id
  * @property RatingLevel $rating_level
  * @property string|null $review
- * @property array|null $metadata
- * @property DateTimeVO|null $created_at
- * @property DateTimeVO|null $updated_at
- * @property DateTimeVO|null $deleted_at
+ * @property StrictDataObject|null $metadata
  * @property-read Model|null $rater
  * @property-read Model|null $rateable
  */
@@ -65,39 +61,6 @@ final class Rating extends Model
     public function rateable(): MorphTo
     {
         return $this->morphTo();
-    }
-
-    /**
-     * Get the created_at attribute as a DateTimeVO.
-     */
-    protected function createdAt(): Attribute
-    {
-        return AttributeProxy::nullable(
-            DateTimeVO::class,
-            column: 'created_at'
-        );
-    }
-
-    /**
-     * Get the updated_at attribute as a DateTimeVO.
-     */
-    protected function updatedAt(): Attribute
-    {
-        return AttributeProxy::nullable(
-            DateTimeVO::class,
-            column: 'updated_at'
-        );
-    }
-
-    /**
-     * Get the deleted_at attribute as a DateTimeVO.
-     */
-    protected function deletedAt(): Attribute
-    {
-        return AttributeProxy::nullable(
-            DateTimeVO::class,
-            column: 'deleted_at'
-        );
     }
 
     /**

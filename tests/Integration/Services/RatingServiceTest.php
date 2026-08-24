@@ -13,7 +13,7 @@ use AndyDefer\LaravelRatings\Tests\Fixtures\Models\TestUser;
 use AndyDefer\LaravelRatings\Tests\IntegrationTestCase;
 use RuntimeException;
 
-final class RatingServiceIntegrationTest extends IntegrationTestCase
+final class RatingServiceTest extends IntegrationTestCase
 {
     private RatingService $ratingService;
 
