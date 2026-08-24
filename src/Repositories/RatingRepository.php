@@ -33,7 +33,7 @@ final class RatingRepository extends AbstractRepository
         $query = $this->buildQuery($filter);
         $avg = $query->avg('rating_level');
 
-        return round($avg ?? 0, 2);
+        return round((float) $avg ?? 0, 2);
     }
 
     public function getRatingDistribution(Model $rateable): array
