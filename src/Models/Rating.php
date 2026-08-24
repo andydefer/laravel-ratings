@@ -7,9 +7,29 @@ namespace AndyDefer\LaravelRatings\Models;
 use AndyDefer\DomainStructures\Utils\StrictDataObject;
 use AndyDefer\LaravelRatings\Enums\RatingLevel;
 use AndyDefer\PhpVo\ValueObjects\DateTimeVO;
+use AndyDefer\Repository\Proxies\AttributeProxy;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Rating model representing a polymorphic rating.
+ *
+ * @property int $id
+ * @property string $rater_type
+ * @property int $rater_id
+ * @property string $rateable_type
+ * @property int $rateable_id
+ * @property RatingLevel $rating_level
+ * @property string|null $review
+ * @property array|null $metadata
+ * @property DateTimeVO|null $created_at
+ * @property DateTimeVO|null $updated_at
+ * @property DateTimeVO|null $deleted_at
+ * @property-read Model|null $rater
+ * @property-read Model|null $rateable
+ */
 final class Rating extends Model
 {
     use SoftDeletes;
@@ -31,43 +51,63 @@ final class Rating extends Model
         'metadata' => 'array',
     ];
 
-    public function rater()
+    /**
+     * Get the rater (the entity that created the rating).
+     */
+    public function rater(): MorphTo
     {
         return $this->morphTo();
     }
 
-    public function rateable()
+    /**
+     * Get the rateable (the entity being rated).
+     */
+    public function rateable(): MorphTo
     {
         return $this->morphTo();
     }
 
-    public function getCreatedAt(): ?DateTimeVO
+    /**
+     * Get the created_at attribute as a DateTimeVO.
+     */
+    protected function createdAt(): Attribute
     {
-        return $this->created_at ? DateTimeVO::from($this->created_at) : null;
+        return AttributeProxy::nullable(
+            DateTimeVO::class,
+            column: 'created_at'
+        );
     }
 
-    public function getUpdatedAt(): ?DateTimeVO
+    /**
+     * Get the updated_at attribute as a DateTimeVO.
+     */
+    protected function updatedAt(): Attribute
     {
-        return $this->updated_at ? DateTimeVO::from($this->updated_at) : null;
+        return AttributeProxy::nullable(
+            DateTimeVO::class,
+            column: 'updated_at'
+        );
     }
 
-    public function getDeletedAt(): ?DateTimeVO
+    /**
+     * Get the deleted_at attribute as a DateTimeVO.
+     */
+    protected function deletedAt(): Attribute
     {
-        return $this->deleted_at ? DateTimeVO::from($this->deleted_at) : null;
+        return AttributeProxy::nullable(
+            DateTimeVO::class,
+            column: 'deleted_at'
+        );
     }
 
-    public function getMetadata(): ?StrictDataObject
+    /**
+     * Get the metadata attribute as a StrictDataObject.
+     */
+    protected function metadata(): Attribute
     {
-        return $this->metadata ? StrictDataObject::from($this->metadata) : null;
-    }
-
-    public function getRatingLevel(): RatingLevel
-    {
-        return $this->rating_level;
-    }
-
-    public function getReview(): ?string
-    {
-        return $this->review;
+        return AttributeProxy::nullable(
+            StrictDataObject::class,
+            column: 'metadata'
+        );
     }
 }
