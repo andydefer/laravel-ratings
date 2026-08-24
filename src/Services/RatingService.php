@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AndyDefer\LaravelRatings\Services;
 
+use AndyDefer\LaravelRatings\Contracts\Services\RatingServiceInterface;
 use AndyDefer\LaravelRatings\Enums\RatingLevel;
 use AndyDefer\LaravelRatings\Records\RatingFilterRecord;
 use AndyDefer\LaravelRatings\Records\RatingRecord;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use RuntimeException;
 
-final class RatingService
+final class RatingService implements RatingServiceInterface
 {
     public function __construct(
         private readonly RatingRepository $ratingRepository,
