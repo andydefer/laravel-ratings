@@ -12,10 +12,13 @@ return new class extends Migration
     {
         Schema::create('ratings', function (Blueprint $table) {
             $table->id();
-            $table->string('rater_type');
-            $table->string('rater_id');
-            $table->string('rateable_type');
-            $table->string('rateable_id');
+
+            // Longueur limitée à 191 pour permettre l'index unique composite en utf8mb4
+            $table->string('rater_type', 191);
+            $table->string('rater_id', 191);
+            $table->string('rateable_type', 191);
+            $table->string('rateable_id', 191);
+
             $table->unsignedTinyInteger('rating_level');
             $table->text('review')->nullable();
             $table->json('metadata')->nullable();
@@ -24,10 +27,12 @@ return new class extends Migration
 
             $table->index(['rater_type', 'rater_id'], 'ratings_rater_index');
             $table->index(['rateable_type', 'rateable_id'], 'ratings_rateable_index');
+
             $table->unique(
                 ['rater_type', 'rater_id', 'rateable_type', 'rateable_id'],
-                'ratings_unique'
+                'ratings_unique',
             );
+
             $table->index('rating_level');
         });
     }
