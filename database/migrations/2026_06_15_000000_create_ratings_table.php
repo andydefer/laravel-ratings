@@ -12,15 +12,22 @@ return new class extends Migration
     {
         Schema::create('ratings', function (Blueprint $table) {
             $table->id();
-            $table->morphs('rater');
-            $table->morphs('rateable');
+            $table->string('rater_type');
+            $table->string('rater_id');
+            $table->string('rateable_type');
+            $table->string('rateable_id');
             $table->unsignedTinyInteger('rating_level');
             $table->text('review')->nullable();
             $table->json('metadata')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->unique(['rater_type', 'rater_id', 'rateable_type', 'rateable_id'], 'ratings_unique');
+            $table->index(['rater_type', 'rater_id'], 'ratings_rater_index');
+            $table->index(['rateable_type', 'rateable_id'], 'ratings_rateable_index');
+            $table->unique(
+                ['rater_type', 'rater_id', 'rateable_type', 'rateable_id'],
+                'ratings_unique'
+            );
             $table->index('rating_level');
         });
     }
