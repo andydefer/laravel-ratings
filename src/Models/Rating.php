@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null $review
  * @property StrictDataObject|null $metadata
  * @property-read Model|null $rater
+ * @property-read string|null $rater_name
  * @property-read Model|null $rateable
  */
 final class Rating extends Model
@@ -45,6 +46,10 @@ final class Rating extends Model
     protected $casts = [
         'rating_level' => RatingLevel::class,
         'metadata' => 'array',
+    ];
+
+    protected $appends = [
+        'rater_name',
     ];
 
     /**
@@ -71,6 +76,16 @@ final class Rating extends Model
         return AttributeProxy::nullable(
             StrictDataObject::class,
             column: 'metadata'
+        );
+    }
+
+    /**
+     * Get the name of the rater via its `name` attribute.
+     */
+    protected function raterName(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): ?string => $this->rater?->name,
         );
     }
 }

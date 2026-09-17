@@ -13,14 +13,12 @@ use AndyDefer\PhpVo\ValueObjects\DateTimeVO;
 /**
  * Data Transfer Object for Rating.
  *
- * This DTO is used for API responses and data transfer between layers.
- * It provides a clean, typed representation of a Rating with all its properties.
- *
  * @example
  * $ratingData = RatingData::from([
  *     'id' => 1,
  *     'raterType' => User::class,
  *     'raterId' => 123,
+ *     'raterName' => 'John Doe',
  *     'rateableType' => Product::class,
  *     'rateableId' => 456,
  *     'ratingLevel' => RatingLevel::FIVE,
@@ -38,6 +36,7 @@ final class RatingData extends AbstractData
         public readonly ?int $id,
         public readonly string $raterType,
         public readonly int $raterId,
+        public readonly ?string $raterName,
         public readonly string $rateableType,
         public readonly int $rateableId,
         public readonly RatingLevel $ratingLevel,
