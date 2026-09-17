@@ -27,7 +27,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read string|null $rater_name
  * @property-read Model|null $rateable
  */
-final class Rating extends Model
+class Rating extends Model
 {
     use SoftDeletes;
 
