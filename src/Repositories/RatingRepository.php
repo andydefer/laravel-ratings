@@ -13,7 +13,7 @@ use AndyDefer\Repository\AbstractRepository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-final class RatingRepository extends AbstractRepository
+class RatingRepository extends AbstractRepository
 {
     public function __construct()
     {
