@@ -4,12 +4,12 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "AndyDefer\\LaravelRatings\\": "src/"
+            "AndyDefer\\LaravelRatings\\": "src/",
+            "AndyDefer\\LaravelRatings\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "AndyDefer\\LaravelRatings\\Database\\Factories\\": "database/factories/",
             "AndyDefer\\LaravelRatings\\Tests\\": "tests/"
         }
     },
