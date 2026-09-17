@@ -19,15 +19,15 @@ use AndyDefer\PhpVo\ValueObjects\DateTimeVO;
  * @example
  * $ratingData = RatingData::from([
  *     'id' => 1,
- *     'rater_type' => User::class,
- *     'rater_id' => 123,
- *     'rateable_type' => Product::class,
- *     'rateable_id' => 456,
- *     'rating_level' => RatingLevel::FIVE,
+ *     'raterType' => User::class,
+ *     'raterId' => 123,
+ *     'rateableType' => Product::class,
+ *     'rateableId' => 456,
+ *     'ratingLevel' => RatingLevel::FIVE,
  *     'review' => 'Excellent product!',
  *     'metadata' => ['order_id' => 789],
- *     'created_at' => '2024-01-15 10:00:00',
- *     'updated_at' => '2024-01-15 10:00:00',
+ *     'createdAt' => '2024-01-15 10:00:00',
+ *     'updatedAt' => '2024-01-15 10:00:00',
  * ]);
  */
 final class RatingData extends AbstractData
@@ -36,15 +36,15 @@ final class RatingData extends AbstractData
 
     public function __construct(
         public readonly ?int $id,
-        public readonly string $rater_type,
-        public readonly int $rater_id,
-        public readonly string $rateable_type,
-        public readonly int $rateable_id,
-        public readonly RatingLevel $rating_level,
+        public readonly string $raterType,
+        public readonly int $raterId,
+        public readonly string $rateableType,
+        public readonly int $rateableId,
+        public readonly RatingLevel $ratingLevel,
         public readonly ?string $review,
         public readonly ?StrictDataObject $metadata,
-        public readonly ?DateTimeVO $created_at,
-        public readonly ?DateTimeVO $updated_at,
-        public readonly ?DateTimeVO $deleted_at,
+        public readonly ?DateTimeVO $createdAt,
+        public readonly ?DateTimeVO $updatedAt,
+        public readonly ?DateTimeVO $deletedAt,
     ) {}
 }

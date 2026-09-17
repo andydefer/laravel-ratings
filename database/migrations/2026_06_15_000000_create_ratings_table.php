@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('rateable_id', 191);
 
             $table->unsignedTinyInteger('rating_level');
-            $table->text('review')->nullable();
+            $table->longText('review')->nullable();
             $table->json('metadata')->nullable();
             $table->timestamps();
             $table->softDeletes();
